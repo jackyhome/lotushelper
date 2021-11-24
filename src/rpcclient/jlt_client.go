@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"log"
 	"net"
 	"net/rpc"
@@ -11,9 +12,13 @@ import (
 
 func main() {
 	rpc.Register(new(services.StatusService))
+	serverHost := flag.String("server", "", "Server host name")
+	serverPort := flag.String("port", "", "Server port")
+	flag.Parse()
 
+	log.Println("Server to be used: " + *serverHost + ":" + *serverPort)
 	for {
-		conn, _ := net.Dial("tcp", "fc.pikumao.com:2021")
+		conn, _ := net.Dial("tcp", *serverHost+":"+*serverPort)
 		if conn == nil {
 			time.Sleep(time.Second)
 			continue
