@@ -19,6 +19,8 @@ func RegisterStatusService(svc StatusServiceInterface) error {
 type LtStatus struct {
 	ServerName   string
 	ServerType   string
+	ServerHost   string
+	DiskInfo     string
 	GpuStatus    models.StatusCode
 	InstanceList []models.LtInstance
 }

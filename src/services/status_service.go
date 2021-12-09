@@ -38,8 +38,10 @@ func (s *StatusService) UpdateStatus(request interfaces.LtStatus, reply *string)
 			Server: &models.LtServer{
 				ServerType: models.ServerType(request.ServerType),
 				ServerName: request.ServerName,
+				ServerHost: request.ServerHost,
 			},
 			GpuStatus:      request.GpuStatus,
+			DiskInfo:       request.DiskInfo,
 			Instances:      map[string]models.LtInstance{},
 			InstanceStatus: map[string]*models.InstanceStatus{},
 		}
@@ -60,6 +62,7 @@ func (s *StatusService) UpdateStatus(request interfaces.LtStatus, reply *string)
 		}
 		serverStatus.Server.ServerType = models.ServerType(request.ServerType)
 		serverStatus.GpuStatus = request.GpuStatus
+		serverStatus.DiskInfo = request.DiskInfo
 		for _, instance := range request.InstanceList {
 			serverStatus.InstanceStatus[instance.InstanceName].StatusCode = models.ON
 		}

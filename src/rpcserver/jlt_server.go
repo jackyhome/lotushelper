@@ -17,6 +17,7 @@ func main() {
 
 	interfaces.RegisterStatusService(new(services.StatusService))
 	http.HandleFunc("/jltrpc", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
 		var conn io.ReadWriteCloser = struct {
 			io.Writer
 			io.ReadCloser
@@ -27,7 +28,7 @@ func main() {
 		rpc.ServeRequest(jsonrpc.NewServerCodec(conn))
 	})
 
-	http.ListenAndServe(":4200", nil)
+	http.ListenAndServe(":4300", nil)
 
 }
 

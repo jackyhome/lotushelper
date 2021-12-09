@@ -26,6 +26,7 @@ const (
 type LtServer struct {
 	ServerType  ServerType
 	ServerName  string
+	ServerHost  string
 	LtInstances []LtInstance
 }
 type LtInstance struct {
@@ -40,6 +41,7 @@ type ServerStatus struct {
 	Server         *LtServer
 	StatusLck      sync.Mutex
 	GpuStatus      StatusCode
+	DiskInfo       string
 	Instances      map[string]LtInstance
 	InstanceStatus map[string]*InstanceStatus
 }
