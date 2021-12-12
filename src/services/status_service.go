@@ -19,7 +19,6 @@ func (s *StatusService) GetStatus(request string, reply *string) error {
 	// 	log.Fatal("Get error: ", err)
 	// }
 	// log.Println(string(out))
-	log.Println(request)
 	status := models.GetLtStatus()
 	serverStatus, ok := status.GetServerStatus(request)
 	if ok {
