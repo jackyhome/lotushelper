@@ -36,7 +36,10 @@ func main() {
 	}
 	log.Println("Server to be used: " + *serverPort)
 
-	http.ListenAndServe(":"+*serverPort, nil)
+	err := http.ListenAndServeTLS(":"+*serverPort, "server.crt", "server.key", nil)
+	if err != nil {
+		log.Fatal("Listen and serve: ", err)
+	}
 
 }
 
