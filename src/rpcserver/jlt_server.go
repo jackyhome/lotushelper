@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"io"
 	"log"
@@ -14,6 +15,8 @@ import (
 )
 
 func main() {
+	serverPort := flag.String("port", "", "Server port")
+	flag.Parse()
 
 	interfaces.RegisterStatusService(new(services.StatusService))
 	http.HandleFunc("/jltrpc", func(w http.ResponseWriter, r *http.Request) {
@@ -28,7 +31,12 @@ func main() {
 		rpc.ServeRequest(jsonrpc.NewServerCodec(conn))
 	})
 
-	http.ListenAndServe(":4300", nil)
+	if *serverPort == "" {
+		*serverPort = "4200"
+	}
+	log.Println("Server to be used: " + *serverPort)
+
+	http.ListenAndServe(":"+*serverPort, nil)
 
 }
 

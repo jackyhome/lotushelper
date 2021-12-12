@@ -3,6 +3,7 @@ package models
 import (
 	"encoding/json"
 	"sync"
+	"time"
 )
 
 type ServerType string
@@ -44,6 +45,7 @@ type ServerStatus struct {
 	DiskInfo       string
 	Instances      map[string]LtInstance
 	InstanceStatus map[string]*InstanceStatus
+	UpdateTime     time.Time
 }
 
 var instantiated *ServerStatus

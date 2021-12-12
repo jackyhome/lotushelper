@@ -2,6 +2,8 @@ package services
 
 import (
 	"log"
+	"time"
+
 	//"os/exec"
 
 	"github.com/jackyhome/lotushelper/src/interfaces"
@@ -44,6 +46,7 @@ func (s *StatusService) UpdateStatus(request interfaces.LtStatus, reply *string)
 			DiskInfo:       request.DiskInfo,
 			Instances:      map[string]models.LtInstance{},
 			InstanceStatus: map[string]*models.InstanceStatus{},
+			UpdateTime:     time.Now(),
 		}
 		for _, instance := range request.InstanceList {
 			serverStatus.InstanceStatus[instance.InstanceName] = &models.InstanceStatus{
@@ -63,6 +66,7 @@ func (s *StatusService) UpdateStatus(request interfaces.LtStatus, reply *string)
 		serverStatus.Server.ServerType = models.ServerType(request.ServerType)
 		serverStatus.GpuStatus = request.GpuStatus
 		serverStatus.DiskInfo = request.DiskInfo
+		serverStatus.UpdateTime = time.Now()
 		for _, instance := range request.InstanceList {
 			serverStatus.InstanceStatus[instance.InstanceName].StatusCode = models.ON
 		}
